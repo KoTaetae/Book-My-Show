@@ -8,10 +8,12 @@ import { MovieContext } from '../context/Movie.context';
 import Slider from "react-slick";
 import {FaCcVisa, FaCcApplePay } from "react-icons/fa";
 import PosterSlider from "../components/PosterSlider/PosterSlider.Component";
+import MovieHero from "../components/MovieHero/MovieHero.Component";
+//import Cast from "../components/Cast/Cast.Component";
 
 const MoviePage = () => {
   const {id} = useParams();
-  const {movie} = useContext(MovieContext);
+  const {movie , setMovie} = useContext(MovieContext);
 
   const [similarMovies, setSimilarMovies] = useState([]);
   const [cast, setCast] = useState([]);
@@ -44,21 +46,64 @@ const MoviePage = () => {
     requestRecommendedMovies();
   }, [id]);
 
+      useEffect(() => {
+          const requestMovie = async () => {
+              const getMovieData = await axios.get(`/movie/${id}`);
+              setMovie(getMovieData.data);
+          };
+          
+          requestMovie();
+      } , [id])
 
     const settingCast = {};
 
-    const settings = {};
+    const settings = {
+      infinite: false,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      initialSlide: 0,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            initialSlide: 3,
+          },
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            initialSlide: 4,
+          },
+        },
+      ],
+    };
+ 
 
   return (
     <>
+    <MovieHero />
       <div className="my-12 container px-4 lg-ml-20 lg:w-2/3">
         <div className="flex flex-col items-start gap-3">
           <h1 className="text-gray-800 font-bold text-2xl">About the movie</h1>
           <p>{movie.overview}</p>
         </div>
+     
         <div className='my-8'>
         <hr />
       </div>
+     
       <div className="my-8">
           <h2 className="text-gray-800 font-bold text-2xl mb-3">
             Applicable Offers
@@ -131,5 +176,4 @@ const MoviePage = () => {
   </>
   )
 }
-
 export default MovieLayoutHoc(MoviePage);
