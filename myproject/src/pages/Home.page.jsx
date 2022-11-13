@@ -7,6 +7,8 @@ import PosterSlider from "../components/PosterSlider/PosterSlider.Component";
 // Layout HOC
 import DefaultLayoutHoc from "../layout/Default.layout";
 
+import { Link } from "react-router-dom";
+
 const HomePage = () => {
   const [recommendedMovies, setRecommendedMovies] = useState([]);
   const [premierMovies, setPremierMovies] = useState([]);

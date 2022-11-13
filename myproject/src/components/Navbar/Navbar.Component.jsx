@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import {BiChevronDown, BiMenu, BiSearch} from "react-icons/bi";
 
 function NavSm(){
@@ -10,6 +11,12 @@ function NavSm(){
         <span className='text-gray-400 text-xs flex items-center cursor-pointer hover:text-white'>
           Delhi NCR <BiChevronDown />
         </span>
+        <Link
+            to="/plays"
+            className="text-gray-200 text-base flex items-center cursor-pointer hover:text-white"
+          >
+            Plays
+          </Link>
       </div>
       <div className='w-8 h-8'>
         <BiSearch className='w-full h-full' />
@@ -68,7 +75,12 @@ function NavLg(){
       <span className='text-gray-200 text-base flex items-center cursor-pointer hover:text-white'>
         Delhi NCR <BiChevronDown />
       </span>
-
+      <Link
+            to="/plays"
+            className="text-gray-200 text-base flex items-center cursor-pointer hover:text-white"
+          >
+            Plays
+          </Link>
       <button className='bg-red-600  text-white px-2 py-1 text-sm rounded'>
         Sign In
       </button>
